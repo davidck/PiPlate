@@ -14,11 +14,15 @@ Software Requirements
 1. Apache2
 2. PHP 5+
 3. Java
-4. Apache ANT (should come preinstalled with MacOS X Snow Leopard+
+4. Apache ANT (should come pre-installed with MacOS X)
 
 Recommended
 -----------
 1. NodeJS + npm + LESSC
+
+Optional
+--------
+1. Supported DBMS for Yii Framework
 
 What's Inside
 -------------
