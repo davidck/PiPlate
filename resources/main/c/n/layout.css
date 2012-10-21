@@ -1,0 +1,113 @@
+/* layout.css */
+.page {
+  background-color: #fff;
+  }
+  
+.header {
+  width: 960px;
+  margin: 0 auto;
+  padding: 30px 0 0 0;
+  }
+  .header img {
+    display: block;
+    margin: 0 auto;
+    }
+  .header .branding {
+    display: block;  
+    width: 216px;
+    height: 57px;    
+    }
+
+.content {
+  width: 960px;
+  margin: 0 auto;
+  padding: 10px 0 20px 0;
+  }
+  .container {
+    margin: 0 20px;
+    }
+
+.columns_1 {
+  padding: 20px 0 0 0;
+  }
+
+
+.siteinfo {
+  width: 960px;
+  margin: 0 auto;
+  border-top: 1px solid #939598;
+  background-color: #fff;
+  padding: 20px 0 20px 0;
+  }
+  .siteinfo_nav {
+    list-style-type: none;
+    font-size: 12px;
+    }
+    .siteinfo_nav li {
+      display: inline;
+      border-right: 1px solid #999;
+      padding: 0 10px 0 8px;
+      }
+      .siteinfo_nav li.first {
+        padding-left: 0;
+        }
+      .siteinfo_nav li.last {
+        border: none;
+        padding-right: 0;
+        }
+      .siteinfo_nav li a {
+        text-decoration: underline;
+        color: #0033cc;
+        }
+      .siteinfo_nav li a:hover {
+        color: red;
+        }
+  .siteinfo_extra {
+    padding: 20px 0 0 0;
+    }
+  .siteinfo_extra .left {
+    width: 100px;
+    }
+  .siteinfo_extra .right {
+    width: 860px;
+    }
+    .siteinfo_extra p {
+      position: relative;
+      }
+      .siteinfo_extra p+p {
+        width: 370px;
+        }
+    .siteinfo_extra .equal_housing {
+      position: absolute;
+      top: -5px; right: 0;
+      }
+  .siteinfo .disclaimer {
+    font-size: 10px;
+    font-style: italic;
+    line-height: normal;
+    padding: 0 0 20px 0;
+    margin: 0 100px 0 0;
+    }
+  .siteinfo_social {
+    float: right;
+    display: block;
+    }
+    .siteinfo_social ul {
+      list-style-type: none;
+      }
+      .siteinfo_social li {
+        width: auto;
+        float: left;
+        margin: 0 10px 0 0;
+        }
+        .siteinfo_social .last {
+          margin-right: 0;
+          }
+    .siteinfo_social a {
+      display: block;
+      width: 29px; height: 29px;
+      background: url(../../../i/l/social.png) white no-repeat left top;
+      text-indent: -1000000px;
+      }
+      .siteinfo_social .facebook { background-position: left top; }
+      .siteinfo_social .twitter { background-position: right top; }

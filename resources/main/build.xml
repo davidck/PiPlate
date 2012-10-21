@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="UIPI.ES PiPlate Builder" basedir="." default="dev">
+  <property name="yuicompressor" value="${basedir}/../../resources/bin/yuicompressor-2.4.7.jar"/>  
+  
+  <property name="jsdir" value="${basedir}/j/n" />
+  <property name="jsbuilddir" value="${basedir}/j/n/b" />
+  <property name="jsyuidir" value="${basedir}/j/y/b" />
+  <property name="jsextdir" value="${basedir}/j/n/b/ext" />
+  <property name="jsextyuidir" value="${basedir}/j/y/b/ext" />
+  <property name="jsscript" value="script.js" />
+  
+  <property name="mtscript" value="mootools.js" />
+  <property name="mtcore" value="mootools/mootools-core-1.4.5-full-nocompat.js" />
+  <property name="mtmore" value="mootools/mootools-more-1.4.0.1/Source" />
+  
+  <property name="cssdir" value="${basedir}/c/n" />
+  <property name="cssbuilddir" value="${basedir}/c/n/b" />
+  <property name="cssyuidir" value="${basedir}/c/y/b" />
+  <property name="cssstyle" value="styles.css" />
+  <property name="cssie7style" value="ie7.css" />
+  <property name="cssiestyle" value="ie.css" />
+
+  <target name="delete-all" description="Delete all files">
+    <echo message="Deleting all files" />
+    <delete includeemptydirs="true">
+      <fileset dir="${jsbuilddir}" includes="*.js*" />
+      <fileset dir="${jsyuidir}" includes="*.js*" />
+      <fileset dir="${cssbuilddir}" includes="*.css*" />
+      <fileset dir="${cssyuidir}" includes="*.css*" />
+    </delete>
+  </target>
+  
+  <target name="concat-css" description="Concat CSS">
+    <mkdir dir="${cssbuilddir}" />
+    <echo message="Concat CSS" />
+    <concat destfile="${cssbuilddir}/${cssstyle}" fixlastline="yes">
+      <filelist dir="${cssdir}">
+        <file name="disclaimer.css" />
+        <file name="global.css" />
+        <file name="layout.css" />
+        <file name="normalize.css" />
+      </filelist>
+      <fileset dir="${cssdir}" includes="sets/*.css" />
+      <fileset dir="${cssdir}" includes="w/*.css" />
+      <filelist dir="${cssdir}">
+        <file name="pages.css" />
+      </filelist>
+      <fileset dir="${cssdir}" includes="w/tp/*.css" />
+      <fileset dir="${cssdir}" includes="w/tp/*.*.css" />
+      <fileset dir="${cssdir}" includes="w/tp/*.*.*.css" />
+    </concat>
+    <echo message="Copying IE CSS" />
+    <copy todir="${cssbuilddir}" overwrite="true">
+      <filelist dir="${cssdir}">
+        <file name="ie.css" />
+        <file name="ie7.css" />
+      </filelist>
+    </copy>
+  </target>
+
+  <target name="concat-js" description="Concat JavaScript">
+    <mkdir dir="${jsbuilddir}" />
+    <echo message="Concat JavaScript" />
+    <concat destfile="${jsbuilddir}/${jsscript}" fixlastline="yes">
+      <filelist dir="${jsdir}">
+        <file name="disclaimer.js" />
+        <file name="global.js" />
+      </filelist>
+      <fileset dir="${jsdir}" includes="native/*.js" />
+      <fileset dir="${jsdir}" includes="core/*.js" />
+      <fileset dir="${jsdir}" includes="core/*/*.js" />
+      <fileset dir="${jsdir}" includes="core/*/*/*.js" />
+      <fileset dir="${jsdir}" includes="widgets/*.js" />
+      <fileset dir="${jsdir}" includes="widgets/*/*.js" />
+      <fileset dir="${jsdir}" includes="widgets/*/*/*.js" />
+      <fileset dir="${jsdir}" includes="widgets/*/*/*/*.js" />
+      <fileset dir="${jsdir}" includes="pages/*.js" />
+      <filelist dir="${jsdir}">
+        <file name="main.js" />
+      </filelist>
+      <fileset dir="${jsdir}" includes="tp/*.js" />
+      <fileset dir="${jsdir}" includes="tp/*/*.js" />
+      <fileset dir="${jsdir}" includes="tp/*/*/*.js" />
+    </concat>
+  </target>
+  
+  <target name="concat-mt" description="Concat MooTools">
+    <mkdir dir="${jsbuilddir}" />
+    <echo message="Concat MooTools" />
+    <concat destfile="${jsbuilddir}/${mtscript}" fixlastline="yes">
+      <filelist dir="${jsdir}/library">
+        <file name="${mtcore}" />
+      </filelist>
+      <filelist dir="${jsdir}/library/${mtmore}"> 
+        <file name="More/More.js" />
+      </filelist>
+    </concat>
+  </target>
+  
+  <target name="yui-css" description="Minifying CSS" depends="concat-css">
+    <mkdir dir="${cssyuidir}" />
+    <echo message="Minifying CSS" />
+    <java jar="${yuicompressor}" fork="true" failonerror="true" output="${cssyuidir}/${cssstyle}">  
+      <arg line="--charset UTF-8 --line-break 1000 --type css"/>
+      <arg value="${cssbuilddir}/${cssstyle}" />
+    </java>
+    
+    <echo message="Minifying IE CSS" />
+    <java jar="${yuicompressor}" fork="true" failonerror="true" output="${cssyuidir}/${cssiestyle}">  
+      <arg line="--charset UTF-8 --line-break 1000 --type css"/>
+      <arg value="${cssbuilddir}/${cssiestyle}" />
+    </java>
+    
+    <echo message="Minifying IE7 CSS" />
+    <java jar="${yuicompressor}" fork="true" failonerror="true" output="${cssyuidir}/${cssie7style}">  
+      <arg line="--charset UTF-8 --line-break 1000 --type css"/>
+      <arg value="${cssbuilddir}/${cssie7style}" />
+    </java>
+  </target>
+
+  <target name="yui-js" description="Minifying Main JavaScript" depends="concat-js">
+    <mkdir dir="${jsyuidir}" />
+    <echo message="Minifying Main JavaScript" />
+    <java jar="${yuicompressor}" fork="true" failonerror="true" output="${jsyuidir}/${jsscript}">
+      <arg line="--charset UTF-8 --line-break 1000 --type js"/>
+      <arg value="${jsbuilddir}/${jsscript}" />
+    </java>
+  </target>
+  
+  <target name="yui-mt" description="Minifying MooTools" depends="concat-mt">
+    <mkdir dir="${jsyuidir}" />
+    <echo message="Minifying MooTools" />
+    <java jar="${yuicompressor}" fork="true" failonerror="true" output="${jsyuidir}/${mtscript}">
+      <arg value="--charset" />  
+      <arg value="UTF-8" />  
+      <arg value="--line-break" />
+      <arg value="1000" />
+      <arg value="--type" />  
+      <arg value="js" />  
+      <arg value="${jsbuilddir}/${mtscript}" />
+    </java>
+  </target>
+  
+  <target name="build" depends="concat-css, concat-js, yui-css, yui-js">
+    <echo message="Done" />
+  </target>
+  
+  <target name="build-moo" depends="concat-mt, yui-mt">
+    <echo message="Done" />
+  </target>
+  
+  <target name="deploy" depends="delete-all, build-moo, build">
+    <echo message="Done" />
+  </target>
+
+  <target name="dev" depends="concat-css, concat-js">
+    <echo message="Done" />
+  </target>
+</project>
