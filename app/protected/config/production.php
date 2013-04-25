@@ -3,7 +3,7 @@ return CMap::mergeArray(
     require(dirname(__FILE__).'/main.php'),
     array(
         'params'=>array(
-            'resourcesDomain' => 'resources.piplate.uipi.es',
+            'resourcesSub' => 'resources.',
             'resourcesEnv' => 'y',
             'googleAnalyticsID' => 'UA-35729851-1' 
         )

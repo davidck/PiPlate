@@ -85,7 +85,8 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-        'resourcesDomain' => 'resources.piplate.uipi.es',
+	      'resourcesSub' => 'resources.',
+        'resourcesDomain' => 'piplate.uipi.es',
         'resourcesEnv' => 'n',
         'resourcesTypes' => array(
             'i' => '/i',

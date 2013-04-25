@@ -8,9 +8,10 @@ class Controller extends CController
 	public $bodyId = 'gen';
 
     public function resources($type, $isOutputEnv = false) {
+        $sub = Yii::app()->params['resourcesSub'];
         $domain = Yii::app()->params['resourcesDomain'];
         $types  = (object)Yii::app()->params['resourcesTypes'];
         $env    = ($isOutputEnv) ? '/'.Yii::app()->params['resourcesEnv'] : '';
-        return 'http://'.$domain.$types->$type.$env;
+        return 'http://'.$sub.$domain.$types->$type.$env;
     }
 }
